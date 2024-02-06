@@ -4,6 +4,7 @@ const CreateModelForm = () => {
     const [formData, setFormData] = useState({
         model_name: '',
         picture_url: '',
+        manufacturer: ''
     });
 
     useEffect(() => {
@@ -41,6 +42,7 @@ const CreateModelForm = () => {
                 setFormData({
                     model_name: '',
                     picture_url: '',
+                    manufacturer: ''
                 });
             }
         } catch (e) {
@@ -56,22 +58,32 @@ const CreateModelForm = () => {
         });
     }
 
-    return (
-        <div>
-            <h1>Create a vehicle model</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="model_name" className="form-label">Model name:</label>
-                    <input value={formData.model_name} onChange={handleFormChange} type="text" className="form-control" name="model_name" />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="picture_url" className="form-label">Picture URL:</label>
-                    <input value={formData.picture_url} onChange={handleFormChange} type="text" className="form-control" name="picture_url" />
-                </div>
-                <button className="btn btn-lg btn-primary w-100" type="submit">Create</button>
-            </form>
-        </div>
-    );
+    const CreateModelForm = ({ formData, handleFormChange, handleSubmit, manufacturers }) => {
+        return (
+            <div>
+                <h1>Create a vehicle model</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="model_name" className="form-label">Model name:</label>
+                        <input value={formData.model_name} onChange={handleFormChange} type="text" className="form-control" name="model_name" />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="picture_url" className="form-label">Picture URL:</label>
+                        <input value={formData.picture_url} onChange={handleFormChange} type="text" className="form-control" name="picture_url" />
+                    </div>
+                    <div>
+                        <label htmlFor="manufacturer" className="form-label">Manufacturer</label>
+                        <select value={formData.manufacturer} onChange={handleFormChange} className="form-control" id="manufacturer" name="manufacturer">
+                            <option value="">Select a manufacturer</option>
+                            {manufacturers.map(({ id, name }) => (
+                                <option value={id} key={id}>{name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <button className="btn btn-lg btn-primary w-20" type="submit">Create</button>
+                </form>
+            </div>
+        );
+    }
 }
-
-export default CreateModelForm;
+    export default CreateModelForm;

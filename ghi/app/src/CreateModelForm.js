@@ -8,23 +8,23 @@ const CreateModelForm = () => {
     });
 
     useEffect(() => {
-        getModels();
+        getManufacturers();
     }, []);
 
-    const getModels = async () => {
-        const url = 'http://localhost:8100/api/models/';
+    const getManufacturers = async () => {
+        const url = 'http://localhost:8100/api/manufacturers/';
         try {
             const res = await fetch(url);
             if (res.ok) {
-                const { models } = await res.json();
-                setVehicleModels(models);
+                const { manufacturers } = await res.json();
+                setManufacturers(manufacturers);
             }
         } catch (e) {
             console.log("An error occurred", e);
         }
     }
 
-    const [vehiclemodels, setVehicleModels] = useState([]);
+    const [manufacturers, setManufacturers] = useState([]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -58,32 +58,31 @@ const CreateModelForm = () => {
         });
     }
 
-    const CreateModelForm = ({ formData, handleFormChange, handleSubmit, manufacturers }) => {
-        return (
-            <div>
-                <h1>Create a vehicle model</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="model_name" className="form-label">Model name:</label>
-                        <input value={formData.model_name} onChange={handleFormChange} type="text" className="form-control" name="model_name" />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="picture_url" className="form-label">Picture URL:</label>
-                        <input value={formData.picture_url} onChange={handleFormChange} type="text" className="form-control" name="picture_url" />
-                    </div>
-                    <div>
-                        <label htmlFor="manufacturer" className="form-label">Manufacturer</label>
-                        <select value={formData.manufacturer} onChange={handleFormChange} className="form-control" id="manufacturer" name="manufacturer">
-                            <option value="">Select a manufacturer</option>
-                            {manufacturers.map(({ id, name }) => (
-                                <option value={id} key={id}>{name}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <button className="btn btn-lg btn-primary w-20" type="submit">Create</button>
-                </form>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <h1>Create a vehicle model</h1>
+            <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                    <label htmlFor="model_name" className="form-label">Model name:</label>
+                    <input value={formData.model_name} onChange={handleFormChange} type="text" className="form-control" name="model_name" />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="picture_url" className="form-label">Picture URL:</label>
+                    <input value={formData.picture_url} onChange={handleFormChange} type="text" className="form-control" name="picture_url" />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="manufacturer" className="form-label">Manufacturer:</label>
+                    <select value={formData.manufacturer} onChange={handleFormChange} className="form-select" name="manufacturer">
+                        <option value="">Choose a manufacturer</option>
+                        {manufacturers.map(manufacturer => (
+                            <option value={manufacturer.name} key={manufacturer.id}>{manufacturer.name}</option>
+                        ))}
+                    </select>
+                </div>
+                <button className="btn btn-lg btn-primary w-20" type="submit">Create</button>
+            </form>
+        </div>
+    );
 }
-    export default CreateModelForm;
+
+export default CreateModelForm;

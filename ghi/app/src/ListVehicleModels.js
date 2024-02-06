@@ -1,17 +1,24 @@
 import React from 'react';
 
-const ListVehicleModels = function({ models }) {
+const ListVehicleModels = function({ model }) {
+    return (
+        <div>
+            <div className="category">
+                <h2>Name</h2>
+                <p>Product Name:{model.name}</p>
+            </div>
 
-    return(
-        <div className="">
-            <img src={model.picture_url} />
-            <div className="">
-                <h6 className="">{hat.fabric} - {hat.style}</h6>
-                <div>Color: {hat.color}</div>
-                <div>Location: {hat.location.id}</div>
+            <div className="category">
+                <h2>Manufacture</h2>
+                <p>Manufacturer:{model.manufacturer}</p>
+            </div>
+
+            <div className="category">
+                <h2>Picture</h2>
+                <img src={model.imageUrl} alt="Product Image" />
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default ListVehicleModels;

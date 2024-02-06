@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import ListVehicleModels from "./ListVehicleModels";
 
 const ListVehicle = function(props) {
     const [models, setModels] = useState([]);
@@ -8,9 +9,9 @@ const ListVehicle = function(props) {
         try {
             const response = await fetch(url)
             const data = await response.json();
-            setModels(modelsData);
+            console.log(data);
         } catch (e) {
-            console.error('An error occured while fetching models:', error);
+            console.error('An error occured while fetching models:', e);
         }
 
     }
@@ -22,9 +23,9 @@ const ListVehicle = function(props) {
     return(
         <>
             <h1>Models</h1>
-            <div>
-
-            </div>
+            <ul>
+                {models.map(model => <ListVehicleModels model={model} />)}
+            </ul>
         </>
     )
 }

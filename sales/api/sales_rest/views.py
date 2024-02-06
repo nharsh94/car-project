@@ -57,7 +57,7 @@ class SaleEncoder(ModelEncoder):
         "automobile": AutomobileVOEncoder(),
     }
 
-@require_http_methods("GET", "POST")
+@require_http_methods(["GET", "POST"])
 def api_list_salespeople(request):
     if request.method == "GET":
         salespeople = Salesperson.objects.all()
@@ -80,12 +80,12 @@ def api_list_salespeople(request):
                 status=500,
             )
 
-@require_http_methods(["GET"])
-def api_list_automobiles(request):
-    if request.method == "GET":
-        autos = AutomobileVO.objects.all()
-        return JsonResponse(
-            autos,
-            encoder = AutomobileVOEncoder,
-            safe=False,
-        )
+# @require_http_methods(["GET"])
+# def api_list_automobiles(request):
+#     if request.method == "GET":
+#         autos = AutomobileVO.objects.all()
+#         return JsonResponse(
+#             autos,
+#             encoder = AutomobileVOEncoder,
+#             safe=False,
+#         )

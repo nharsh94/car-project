@@ -7,7 +7,7 @@ class AutomobileVO(models.Model):
     vin = models.CharField(max_length=100)
     year = models.PositiveSmallIntegerField()
     color = models.CharField(max_length=50)
-    sold = models.BooleanField(default=True)
+    sold = models.BooleanField(default=False)
 
     def __str__(self):
         return self.vin
@@ -43,6 +43,6 @@ class Sale(models.Model):
         related_name = "sales",
         on_delete=models.PROTECT,
     )
-
+    price = models.CharField(max_length=50)
     def __str__(self):
         return f'{self.salesperson} {self.automobile} {self.customer}'

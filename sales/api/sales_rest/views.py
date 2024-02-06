@@ -158,7 +158,51 @@ def api_show_customer(request, id):
             encoder=CustomerEncoder,
             safe=False,
         ) 
+    
+@require_http_methods(["GET", "PUT"])
+def api_list_sales(request):
+    if request.method == "GET":
+        sales = Sale.objects.all()
+        return JsonResponse(
+            {"sales": sales},
+            encoder = SaleEncoder
+        )
+    else:
+        content = json.loads(request.body)
+        try:
+            automobile_href = content["automobile"]
+            automobile = AutomobileVO.objects.get(import_href=automobile_href)
+            if automobile.sold is False:
+                content["automobile"] = automobile
+                customer_name = content["customer"]
+                customer = Customer.objects.get(name=customer_name)
+                content["customer"] = customer
 
+                salesperson = content["salesperson"]
+                salesperson = Salesperson.objects.get(name=salesperson)
+                content["salesperson"] = salesperson
+
+                automobile.sold = True
+                automobile.save()
+
+                sale = Sale.objects.create(**content)
+                return JsonResponse(
+                    sale,
+                    encoder=SaleEncoder,
+                    safe=False,
+                )
+            else:
+                response = JsonResponse(
+                    {"message": "Sorry, sale record not available."},
+                )
+                response.status_code = 400
+                return response
+        except: 
+            response = JsonResponse(
+                {"message": "Could not create a sale record."},
+            )
+            response.status_code = 400
+            return response
 # @require_http_methods(["GET"])
 # def api_list_automobiles(request):
 #     if request.method == "GET":

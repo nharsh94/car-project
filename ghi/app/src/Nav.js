@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 function Nav() {
   return (
@@ -11,6 +11,14 @@ function Nav() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           </ul>
+            <li className="nav-item dropdown">
+              <a href="/" className="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-base-toggle="dropdown" aria-expanded="false">
+                Sales Center
+                </a>
+                <ul className="dropdown-menu" aria-labelledby='navbarDarkDropdownMenuLink'>
+                  <li><Link className="dropdown-item" to="/customer/new">Create a customer</Link></li>
+                  </ul>
+                  </li>
         </div>
       </div>
     </nav>

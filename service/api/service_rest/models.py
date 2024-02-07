@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import datetime
 
 class Technician(models.Model):
     first_name = models.CharField(max_length=100)
@@ -26,3 +27,19 @@ class Appointment(models.Model):
 
     def get_api_url(self):
         return reverse("delete_appointment", kwargs={"appointment_id": self.pk})
+
+    def formatted_date_time(self):
+        if isinstance(self.date_time, str):
+            self.date_time = datetime.strptime(self.date_time, '%Y-%m-%dT%H:%M:%SZ')
+        return self.date_time.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+    def toJSON(self):
+        return {
+            "id": self.id,
+            "date_time": self.formatted_date_time(),
+            "reason": self.reason,
+            "status": self.status,
+            "vin": self.vin,
+            "customer": self.customer,
+            "technician": self.technician_id
+        }

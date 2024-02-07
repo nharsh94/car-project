@@ -72,10 +72,11 @@ def delete_appointment(request, pk=None):
 @require_http_methods(["PUT"])
 def cancel_appointment(request, pk=None):
     if request.method == "PUT":
+        content = json.loads(request.body)
         try:
+            appointment.objects.filter(id=pk).update(**content)
             appointment = Appointment.objects.get(id=pk)
             appointment.status = "canceled"
-            appointment.save()
             return HttpResponse(status=200)
         except Appointment.DoesNotExist:
             response = JsonResponse(

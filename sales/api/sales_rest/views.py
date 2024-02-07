@@ -159,56 +159,59 @@ def api_show_customer(request, id):
             safe=False,
         ) 
     
-@require_http_methods(["GET", "PUT"])
-def api_list_sales(request):
+@require_http_methods(["GET", "POST"])
+def api_list_sales(request, employee_id=None):
     if request.method == "GET":
-        sales = Sale.objects.all()
+        if employee_id == None:
+            sales = Sale.objects.all()
+        else:
+            sales = Sale.objects.filter(employee_id=employee_id)
         return JsonResponse(
             {"sales": sales},
-            encoder = SaleEncoder
+            encoder=SaleEncoder,
+            safe=False,
         )
     else:
         content = json.loads(request.body)
+        vin = content["automobile"]
+        employee_id = content["salesperson"]
+        customer_id = content["customer"]
+
         try:
-            automobile_href = content["automobile"]
-            automobile = AutomobileVO.objects.get(import_href=automobile_href)
-            if automobile.sold is False:
+            automobile = AutomobileVO.objects.get(vin=vin)
+            if automobile.sold == False:
                 content["automobile"] = automobile
-                customer_name = content["customer"]
-                customer = Customer.objects.get(name=customer_name)
-                content["customer"] = customer
-
-                salesperson = content["salesperson"]
-                salesperson = Salesperson.objects.get(name=salesperson)
-                content["salesperson"] = salesperson
-
-                automobile.sold = True
-                automobile.save()
-
-                sale = Sale.objects.create(**content)
-                return JsonResponse(
-                    sale,
-                    encoder=SaleEncoder,
-                    safe=False,
-                )
+            
             else:
-                response = JsonResponse(
-                    {"message": "Sorry, sale record not available."},
-                )
-                response.status_code = 400
+                response = JsonResponse({"Alert": "This vehicle is no longer in inventory."})
+                response.status_code=404
                 return response
-        except: 
-            response = JsonResponse(
-                {"message": "Could not create a sale record."},
-            )
-            response.status_code = 400
+            
+        except AutomobileVO.DoesNotExist:
+            response = JsonResponse({"Message": "Vehicle does not exist."})
+
+        try:
+            salesperson = Salesperson.objects.get(employee_id=employee_id)
+            content["salesperson"] = salesperson
+
+        except Salesperson.DoesNotExist:
+            response = JsonResponse({"Message": "Salesperson does not exist."})
+            response.status_code=404
             return response
-# @require_http_methods(["GET"])
-# def api_list_automobiles(request):
-#     if request.method == "GET":
-#         autos = AutomobileVO.objects.all()
-#         return JsonResponse(
-#             autos,
-#             encoder = AutomobileVOEncoder,
-#             safe=False,
-#         )
+        
+        sale = Sale.objects.create(**content)
+        AutomobileVO.objects.filter(vin=vin).update(sold=True)
+        return JsonResponse(
+            sale,
+            encoder=SaleEncoder,
+            safe=False,
+        )
+
+@require_http_methods(["GET"])
+def api_list_automobileVO(request):
+    if request.method == "GET":
+        automobiles = AutomobileVO.objects.all()
+        return JsonResponse({
+            "automobile": automobiles},
+            encoder=AutomobileVOEncoder
+            )

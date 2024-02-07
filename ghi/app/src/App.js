@@ -11,12 +11,11 @@ function App(props) {
     <BrowserRouter>
       <Nav />
         <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/salespeople" element={<SalespeopleList />} />
-        <Route path="/customers" element={<CustomersList />}>
-        <Route path="/customers/new" element={<CustomerForm />} />
-        </Route>
-        <Route path="/manufacturers" element={<ManufacturersList />} />
+          <Route index element={<MainPage />} />
+          <Route path="/salespeople" element={<SalespeopleList />} />
+          <Route path="/customers" element={<CustomersList />} /> 
+          <Route path="/customers/new" element={<CustomerForm />} />
+          <Route path="/manufacturers" element={<ManufacturersList />} />
         </Routes>
     </BrowserRouter>
   );

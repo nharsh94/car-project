@@ -43,7 +43,7 @@ class Sale(models.Model):
         related_name = "sales",
         on_delete=models.PROTECT,
     )
-    price = models.CharField(max_length=50)
+    price = models.PositiveIntegerField(unique=True, blank=True, null=True)
     
     def __str__(self):
         return f'{self.salesperson} {self.automobile} {self.customer}'

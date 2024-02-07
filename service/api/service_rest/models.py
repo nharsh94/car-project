@@ -6,6 +6,9 @@ class Technician(models.Model):
     last_name = models.CharField(max_length=100)
     employee_id = models.CharField(max_length=20)
 
+    def get_api_url(self):
+        return reverse("delete_technician", kwargs={"technician_id": self.pk})
+
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17)
     sold = models.BooleanField(default=False)
@@ -22,4 +25,4 @@ class Appointment(models.Model):
     )
 
     def get_api_url(self):
-        return reverse("detail_appointment", kwargs={"appointment_id": self.pk})
+        return reverse("delete_appointment", kwargs={"appointment_id": self.pk})

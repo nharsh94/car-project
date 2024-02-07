@@ -1,25 +1,23 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
 import MainPage from './MainPage';
 import Nav from './Nav';
 import CustomerForm from './CustomerForm';
 import CustomersList from './CustomersList';
+import ManufacturersList from './ManufacturersList';
+import SalespeopleList from './SalespeopleList';
 
 function App(props) {
-
-
   return (
     <BrowserRouter>
       <Nav />
-      <div className="container">
         <Routes>
-        <Route index element={<MainPage />} />
-          <Route path="customers">
-            <Route index element={<CustomersList />} />
-          <Route path="new" element={<CustomerForm />} />
-          </Route>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/salespeople" element={<SalespeopleList />} />
+        <Route path="/customers" element={<CustomersList />}>
+        <Route path="/customers/new" element={<CustomerForm />} />
+        </Route>
+        <Route path="/manufacturers" element={<ManufacturersList />} />
         </Routes>
-      </div>
     </BrowserRouter>
   );
 }

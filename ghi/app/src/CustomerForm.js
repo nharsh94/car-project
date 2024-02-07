@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 function CustomerForm({getCustomers}) {
     const [first_name, setFirstName] = useState('');

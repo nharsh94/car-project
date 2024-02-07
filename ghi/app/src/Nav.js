@@ -16,7 +16,7 @@ function Nav() {
                 Sales Center
                 </a>
                 <ul className="dropdown-menu" aria-labelledby='navbarDarkDropdownMenuLink'>
-                  <li><Link className="dropdown-item" to="/customer/new">Create a customer</Link></li>
+                  <li><Link className="dropdown-item" to="/customers/new">Create a customer</Link></li>
                   </ul>
                   </li>
         </div>

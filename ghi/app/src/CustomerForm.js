@@ -34,7 +34,7 @@ function CustomerForm({getCustomers}) {
         data.last_name = last_name;
         data.address = address;
         data.phone_number = phone_number;
-
+        console.log(data)
         const customerUrl = 'http://localhost:8090/api/customers/';
         const fetchConfig = {
             method: "post",
@@ -57,7 +57,7 @@ function CustomerForm({getCustomers}) {
         <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                    <h1>Create a new customer:</h1>
+                    <h1>Add a Customer</h1>
                     <form onSubmit={handleSubmit} id="create-customer-form">
                         <div className="form-floating mb-3">
                             <input onChange={handleFirstNameChange} value={first_name} placeholder="First Name" required type="text" name="first_name" id="first_name" className="form-control" />
@@ -69,7 +69,7 @@ function CustomerForm({getCustomers}) {
                         </div>
                         <div className="form-floating mb-3">
                             <input onChange={handleAddressChange} value={address} placeholder="address" required type="text" name="address" id="address" className="form-control" />
-                            <label htmlFor="address">Shelf Number</label>
+                            <label htmlFor="address">Address</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input onChange={handlePhoneNumberChange} value={phone_number} placeholder="Phone Number" required type="text" name="phone_number" id="phone_number" className="form-control" />

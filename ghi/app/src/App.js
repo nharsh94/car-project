@@ -3,32 +3,21 @@ import React, { useState, useEffect } from 'react';
 import MainPage from './MainPage';
 import Nav from './Nav';
 import CustomerForm from './CustomerForm';
+import CustomersList from './CustomersList';
 
-function App() {
+function App(props) {
 
-  const [customers, setCustomers] = useState([]);
-  const getCustomers = async () => {
-    const url = 'http://localhost:8090/api/customers/';
-    const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-      setCustomers(data);
-    }
-  }
-
-  useEffect(() => {
-    getCustomers();
-  },
-  [
-  ]);
 
   return (
     <BrowserRouter>
       <Nav />
       <div className="container">
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/customer/new" element={<CustomerForm getCustomers={getCustomers}/>} />
+        <Route index element={<MainPage />} />
+          <Route path="customers">
+            <Route index element={<CustomersList />} />
+          <Route path="new" element={<CustomerForm />} />
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>

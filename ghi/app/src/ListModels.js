@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ListVehicleModels from "./ListVehicleModels";
+import ListModelsItems from "./ListModelsItems";
 
-const ListVehicle = function () {
+const ListModels = function () {
     const [models, setModels] = useState([]);
 
     useEffect(() => {
@@ -9,8 +9,8 @@ const ListVehicle = function () {
             const url = 'http://localhost:8100/api/models/';
             try {
                 const response = await fetch(url);
-                const modelsdata = await response.json();
-                setModels(modelsdata);
+                const data = await response.json();
+                setModels(data.models);
             } catch (error) {
                 console.error('An error occurred while fetching models:', error);
             }
@@ -18,13 +18,14 @@ const ListVehicle = function () {
         getModels();
     }, []);
 
+
     return (
         <>
             <h1>Models</h1>
             <ul>
                 {Array.isArray(models) && models.map(model => (
                     <li key={model.id}>
-                        <ListVehicleModels model={model} />
+                        <ListModelsItems model={model} />
                     </li>
                 ))}
             </ul>
@@ -32,4 +33,4 @@ const ListVehicle = function () {
     );
 };
 
-export default ListVehicle;
+export default ListModels;

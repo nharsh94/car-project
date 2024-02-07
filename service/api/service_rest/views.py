@@ -45,8 +45,7 @@ def delete_technician(request, pk=None):
 def appointments(request):
     if request.method == "GET":
         appointment = Appointment.objects.all()
-        return JsonResponse(
-            {"appointment": appointment}, encoder=AppointmentDetailEncoder)
+        return JsonResponse(appointment, encoder=AppointmentDetailEncoder, safe=False)
     else:
         try:
             content = json.loads(request.body)

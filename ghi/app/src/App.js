@@ -4,6 +4,7 @@ import Nav from './Nav';
 import CustomerForm from './CustomerForm';
 import CustomersList from './CustomersList';
 import ManufacturersList from './ManufacturersList';
+import ManufacturerForm from './ManufacturerForm';
 import SalespeopleList from './SalespeopleList';
 
 function App(props) {
@@ -16,6 +17,7 @@ function App(props) {
           <Route path="/customers" element={<CustomersList />} /> 
           <Route path="/customers/new" element={<CustomerForm />} />
           <Route path="/manufacturers" element={<ManufacturersList />} />
+          <Route path="/manufacturers/new" element={<ManufacturerForm />} />
         </Routes>
     </BrowserRouter>
   );

@@ -45,14 +45,14 @@ def delete_technician(request, pk=None):
 @require_http_methods(["GET", "POST"])
 def appointments(request):
     if request.method == "GET":
-        appointment = Appointment.objects.all()
+        appointments = Appointment.objects.all()
         return JsonResponse(
-            appointment,
+        {"appointments": appointments},
             encoder=AppointmentDetailEncoder,
-            safe=False)
+        )
     else:
-        content = json.loads(request.body)
         try:
+            content = json.loads(request.body)
             appointment = Appointment.objects.create(**content)
             return JsonResponse(
                 appointment,

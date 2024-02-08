@@ -7,6 +7,15 @@ import ListAutomobiles from './ListAutomobiles';
 import TechnicianForm from './AddTechnicianForm';
 import ListTechnicians from './ListTechnicians'
 import ServiceAppointmentForm from './ServiceAppointmentForm';
+import SalespeopleList from './SalespeopleList';
+import CustomersList from './CustomersList';
+import CustomerForm from './CustomerForm';
+import SaleForm from './SaleForm';
+import SaleHistory from './SaleHistory';
+import SalesList from './SalesList';
+import ManufacturersList from './ManufacturersList';
+import ManufacturerForm from './ManufacturerForm';
+import AutomobileForm from './AutomobileForm';
 
 function App() {
   return (

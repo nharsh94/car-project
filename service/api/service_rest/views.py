@@ -42,59 +42,74 @@ def delete_technician(request, pk=None):
         deleted, _ = Technician.objects.filter(id=pk).delete()
         return JsonResponse({"deleted" : deleted > 0})
 
-@require_http_methods(["GET", "POST", "PUT"])
-def appointments(request, pk=None):
+@require_http_methods(["GET", "POST"])
+def appointments(request):
     if request.method == "GET":
-        appointments = Appointment.objects.all()
+        appointment = Appointment.objects.all()
         return JsonResponse(
-            list(appointments.values()),
-            safe=False
-        )
-    elif request.method == "POST":
+            appointment,
+            encoder=AppointmentDetailEncoder,
+            safe=False)
+    else:
+        content = json.loads(request.body)
         try:
-            content = json.loads(request.body)
             appointment = Appointment.objects.create(**content)
             return JsonResponse(
-                {"message": "Appointment created successfully"},
-                status=201
-            )
-        except Exception as e:
+                appointment,
+                encoder=AppointmentDetailEncoder,
+                safe=False)
+        except:
             response = JsonResponse(
-                {"message": f"Could not create an appointment: {str(e)}"}
+                {"message": "Could not create an appointment"}
             )
             response.status_code = 400
             return response
-
-    elif request.method == "PUT":
-        content = json.loads(request.body)
-        try:
-            appointment = Appointment.objects.get(id=pk).update
-            if "cancel" in request.path:
-                appointment.status = "canceled"
-            elif "finish" in request.path:
-                appointment.status = "finished"
-            appointment.save()
-            return HttpResponse(status=200)
-        except Appointment.DoesNotExist:
-            response = JsonResponse(
-                {"message": f"Appointment with id {pk} does not exist"},
-                status=404
-            )
-            return response
-        except Exception as e:
-            response = JsonResponse(
-                {"message": f"Error updating appointment: {str(e)}"},
-                status=500
-            )
-            return response
-    else:
-        return JsonResponse(
-            {"message": "Method not allowed"},
-            status=405
-        )
 
 @require_http_methods(["DELETE"])
 def delete_appointment(request, pk=None):
     if request.method == "DELETE":
         deleted, _ = Appointment.objects.filter(id=pk).delete()
         return JsonResponse({"deleted" : deleted > 0})
+
+@require_http_methods(["PUT"])
+def cancel_appointment(request, pk=None):
+    if request.method == "PUT":
+        content = json.loads(request.body)
+        try:
+            appointment.objects.filter(id=pk).update(**content)
+            appointment = Appointment.objects.get(id=pk)
+            appointment.status = "canceled"
+            return HttpResponse(status=200)
+        except Appointment.DoesNotExist:
+            response = JsonResponse(
+                {"message": f"Appointment with id {pk} does not exist"}
+            )
+            response.status_code = 404
+            return response
+        except Exception as e:
+            response = JsonResponse(
+                {"message": f"Error canceling appointment: {str(e)}"}
+            )
+            response.status_code = 500
+            return response
+
+@require_http_methods(["PUT"])
+def finish_appointment(request, pk=None):
+    if request.method == "PUT":
+        try:
+            appointment = Appointment.objects.get(id=pk)
+            appointment.status = "finished"
+            appointment.save()
+            return HttpResponse(status=200)
+        except Appointment.DoesNotExist:
+            response = JsonResponse(
+                {"message": f"Appointment with id {pk} does not exist"}
+            )
+            response.status_code = 404
+            return response
+        except Exception as e:
+            response = JsonResponse(
+                {"message": f"Error finishing appointment: {str(e)}"}
+            )
+            response.status_code = 500
+            return response

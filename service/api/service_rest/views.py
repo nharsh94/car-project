@@ -3,11 +3,35 @@ from django.views.decorators.http import require_http_methods
 from .models import Technician, Appointment
 import json
 from common.json import ModelEncoder
+# from django.http import HttpResponse
 
 
 class AppointmentDetailEncoder(ModelEncoder):
     model = Appointment
     properties = ["id", "date_time", "reason", "status", "vin", "customer", "technician"]
+
+    def default(self, obj):
+        if isinstance(obj, Appointment):
+            appointment_data = {
+                "id": obj.id,
+                "date_time": obj.date_time,
+                "reason": obj.reason,
+                "status": obj.status,
+                "vin": obj.vin,
+                "customer": obj.customer,
+                "technician": None
+            }
+            if obj.technician:
+                appointment_data["technician"] = {
+                    "id": obj.technician.id,
+                    "first_name": obj.technician.first_name,
+                    "last_name": obj.technician.last_name,
+                    "employee_id": obj.technician.employee_id
+
+                }
+            return appointment_data
+        else:
+            return super().default(obj)
 
 
 class TechnicianDetailEncoder(ModelEncoder):
@@ -46,10 +70,8 @@ def delete_technician(request, pk=None):
 def appointments(request):
     if request.method == "GET":
         appointments = Appointment.objects.all()
-        return JsonResponse(
-            {"appointments": list(appointments)},
-            encoder=AppointmentDetailEncoder, safe=False
-        )
+        return JsonResponse(appointments, encoder=AppointmentDetailEncoder, safe=False)
+
     elif request.method == "POST":
         try:
             content = json.loads(request.body)

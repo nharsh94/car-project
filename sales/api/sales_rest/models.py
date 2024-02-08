@@ -30,20 +30,18 @@ class Customer(models.Model):
 class Sale(models.Model):
     automobile = models.ForeignKey(
         AutomobileVO,
-        related_name="sales",
+        related_name="automobile",
         on_delete=models.PROTECT,
     )
     salesperson = models.ForeignKey(
         Salesperson,
-        related_name="sales",
+        related_name="salesperson",
         on_delete=models.PROTECT,
     )
     customer = models.ForeignKey(
         Customer,
-        related_name = "sales",
+        related_name = "customer",
         on_delete=models.PROTECT,
     )
-    price = models.PositiveIntegerField(unique=True, blank=True, null=True)
+    price = models.IntegerField()
     
-    def __str__(self):
-        return f'{self.salesperson} {self.automobile} {self.customer}'

@@ -32,7 +32,8 @@ function Nav() {
         </div>
       </div>
     </nav>
-  )
+    </header>
+  );
 }
 
 export default Nav;

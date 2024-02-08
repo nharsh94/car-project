@@ -3,8 +3,8 @@ CarCar is a car dealership application -- making it easier to manage inventory, 
 
 Team:
 
-* Person 1 - Which microservice?
-* Noah Harshbarger - Sales Microservice
+* Person 1 - Tim McCormack, Automobile Service
+* Person 2 - Which microservice?
 
 ## Design
 

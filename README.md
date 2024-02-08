@@ -4,7 +4,7 @@ CarCar is a car dealership application -- making it easier to manage inventory, 
 Team:
 
 * Person 1 - Tim McCormack, Automobile Service
-* Person 2 - Which microservice?
+* Noah Harshbarger - Sales Microservice
 
 ## Design
 
@@ -31,5 +31,4 @@ For the sales model, foreign keys were created for AutomobileVO, Salesperson, an
 ### URL Endpoints/Samples
 
 In the following images, the relevant URL, endpoint, HTTP method, and request/response bodies are visible. The order will be GET, POST, PUT, and DELETE.
-
 

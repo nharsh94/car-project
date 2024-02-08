@@ -25,6 +25,51 @@ function Nav() {
               <li className='nav item'>
               <NavLink className="nav-link" to="appointments/new">Create a Service Appointment</NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" aria-current="page" to="/customers">
+                Customers
+                </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" aria-current="page" to="/customers/new">
+                Create Customer
+                </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" aria-current="page" to="/manufacturers">
+                Manufacturers
+                </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" aria-current="page" to="/manufacturers/new">
+                Create Manufacturer
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" aria-current="page" to="/salespeople">
+                Salespeople
+                </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" aria-current="page" to="/automobiles/new">
+                Create Automobile
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" aria-current="page" to="/sales">
+                Sales
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" aria-current="page" to="/sales/history">
+                Sales History
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" aria-current="page" to="/sales/new">
+                Create Sale
+              </NavLink>
+            </li>
             </li>
             </li>
             </li>
@@ -32,7 +77,6 @@ function Nav() {
         </div>
       </div>
     </nav>
-    </header>
   );
 }
 

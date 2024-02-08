@@ -21,6 +21,15 @@ function App() {
           <Route path="/technicians" index element={<ListTechnicians/>} />
           <Route path="/technicians/new" index element={<TechnicianForm/>} />
           <Route path="/appointments/new" index element={<ServiceAppointmentForm/>} />
+          <Route path="/salespeople" element={<SalespeopleList />} />
+          <Route path="/customers" element={<CustomersList />} /> 
+          <Route path="/customers/new" element={<CustomerForm />} />
+          <Route path="/manufacturers" element={<ManufacturersList />} />
+          <Route path="/manufacturers/new" element={<ManufacturerForm />} />
+          <Route path="/automobiles/new" element={<AutomobileForm />} />
+          <Route path="/sales" element={<SalesList />} />
+          <Route path="/sales/history/" element={<SaleHistory />} />
+          <Route path="/sales/new/" element={<SaleForm />} />
         </Routes>
       </div>
     </BrowserRouter>

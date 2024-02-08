@@ -18,22 +18,22 @@ def poll():
     while True:
         print('Service poller polling for data')
         try:
-            # Write your polling logic, here
             response = requests.get("http://inventory-api:8000/api/automobiles/")
-            content = json.loads(response.content)
-            for automobile in content["automobiles"]:
+            content = response.json()
+            # print(content)
+            autos = content.get("autos", [])
+            for automobile in autos:
+                # print("auto being saved", automobile)
                 AutomobileVO.objects.update_or_create(
-                    import_href = automobile["href"],
+                    import_href=automobile["href"],
+                    vin=automobile["vin"],
                     defaults={
-                        "vin":automobile["automobile"],
-                        "sold":automobile["automobile"],
+                        "sold":automobile["sold"]
                     }
                 )
-            # Do not copy entire file
+
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)
-
-
 if __name__ == "__main__":
     poll()

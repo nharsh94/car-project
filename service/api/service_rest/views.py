@@ -44,7 +44,28 @@ def delete_technician(request, pk=None):
 
 @require_http_methods(["GET", "POST"])
 def appointments(request):
-
+    if request.method == "GET":
+        appointments = Appointment.objects.all()
+        return JsonResponse(
+            {"appointments": list(appointments)},
+            encoder=AppointmentDetailEncoder, safe=False
+        )
+    elif request.method == "POST":
+        try:
+            content = json.loads(request.body)
+            appointment = Appointment.objects.create(**content)
+            return JsonResponse(
+                {"appointment_id": appointment.id},
+                status=201
+            )
+        except Exception as e:
+            response = JsonResponse(
+                {"message": "Could not create the appointment", "error": str(e)}
+            )
+            response.status_code = 400
+            return response
+    else:
+        return JsonResponse({"message": "Method Not Allowed"}, status=405)
 
 @require_http_methods(["DELETE"])
 def delete_appointment(request, pk=None):

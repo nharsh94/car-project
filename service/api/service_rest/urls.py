@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import technicians, delete_technician, appointments, delete_appointment
+from .views import technicians, delete_technician, delete_appointment, appointments
 
 urlpatterns = [
     path('service/technicians/', technicians, name="technicians"),

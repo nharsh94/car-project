@@ -55,6 +55,11 @@ function Nav() {
                 Sales History
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" aria-current="page" to="/sales/new">
+                Create Sale
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

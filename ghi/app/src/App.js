@@ -9,6 +9,7 @@ import SalespeopleList from './SalespeopleList';
 import AutomobileForm from './AutomobileForm';
 import SalesList from './SalesList';
 import SaleHistory from './SaleHistory';
+import SaleForm from './SaleForm';
 
 function App(props) {
   return (
@@ -24,6 +25,7 @@ function App(props) {
           <Route path="/automobiles/new" element={<AutomobileForm />} />
           <Route path="/sales" element={<SalesList />} />
           <Route path="/sales/history/" element={<SaleHistory />} />
+          <Route path="/sales/new/" element={<SaleForm />} />
         </Routes>
     </BrowserRouter>
   );

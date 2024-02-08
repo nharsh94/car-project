@@ -10,7 +10,7 @@ const ListAutomobiles = function () {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        setAutomobiles(data.autos); // Change data.automobiles to data.autos
+        setAutomobiles(data.autos);
       } catch (error) {
         console.error("An error occurred while fetching automobiles:", error);
       }
@@ -24,7 +24,7 @@ const ListAutomobiles = function () {
       {automobiles.map((automobile) => (
         <div key={automobile.id}>
           <ListAutomobilesItems automobile={automobile} />
-          <hr /> {/* Add a horizontal line between each automobile */}
+          <hr />
         </div>
       ))}
     </>

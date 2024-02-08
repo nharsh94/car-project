@@ -11,6 +11,7 @@ class Technician(models.Model):
         return reverse("delete_technician", kwargs={"technician_id": self.pk})
 
 class AutomobileVO(models.Model):
+    import_href = models.CharField(max_length=300, unique=True, blank=True)
     vin = models.CharField(max_length=17)
     sold = models.BooleanField(default=False)
 

@@ -3,10 +3,7 @@ from django.db import models
 # Create your models here.
 
 class AutomobileVO(models.Model):
-    import_href = models.CharField(max_length=300, unique=True, blank=True)
-    vin = models.CharField(max_length=100)
-    year = models.PositiveSmallIntegerField()
-    color = models.CharField(max_length=50)
+    vin = models.CharField(max_length=17, unique=True)
     sold = models.BooleanField(default=False)
 
     def __str__(self):
@@ -27,21 +24,22 @@ class Customer(models.Model):
     
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+    
 class Sale(models.Model):
     automobile = models.ForeignKey(
-        AutomobileVO,
+        "AutomobileVO",
         related_name="automobile",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
     )
     salesperson = models.ForeignKey(
-        Salesperson,
+        "Salesperson",
         related_name="salesperson",
         on_delete=models.PROTECT,
     )
     customer = models.ForeignKey(
-        Customer,
+        "Customer",
         related_name = "customer",
         on_delete=models.PROTECT,
     )
-    price = models.IntegerField()
+    price = models.PositiveIntegerField()
     

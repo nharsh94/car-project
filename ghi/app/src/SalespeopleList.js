@@ -2,21 +2,22 @@ import { useState, useEffect } from 'react';
 
 function SalespeopleList() {
     const [salespeople, SetSalespeople] = useState([])
-
     const getData = async () => {
-        const response = await fetch('http://localhost:8090/api/salespeople/');
+        const url = 'http://localhost:8090/api/salespeople/';
+        const response = await fetch(url);
 
         if (response.ok) {
             const data = await response.json();
             SetSalespeople(data.salespeople);
         }
-    }
+    };
 
     useEffect(() => {
         getData()
-    }, [])
+    }, []);
 
     return(
+        <div>
         <table className="table table-striped">
             <thead>
                 <tr>
@@ -33,11 +34,12 @@ function SalespeopleList() {
                             <td>{ salesperson.first_name }</td>
                             <td>{ salesperson.last_name }</td>
                         </tr>
-                    )
+                    );
                 })}
             </tbody>
         </table>
-    )
+        </div>
+    );
 }
 
 export default SalespeopleList;

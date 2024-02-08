@@ -11,10 +11,11 @@ import SalesList from './SalesList';
 import SaleHistory from './SaleHistory';
 import SaleForm from './SaleForm';
 
-function App(props) {
+function App() {
   return (
     <BrowserRouter>
       <Nav />
+      <div className="container">
         <Routes>
           <Route index element={<MainPage />} />
           <Route path="/salespeople" element={<SalespeopleList />} />
@@ -27,6 +28,7 @@ function App(props) {
           <Route path="/sales/history/" element={<SaleHistory />} />
           <Route path="/sales/new/" element={<SaleForm />} />
         </Routes>
+      </div>
     </BrowserRouter>
   );
 }

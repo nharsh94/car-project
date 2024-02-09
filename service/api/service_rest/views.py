@@ -1,10 +1,16 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from .models import Technician, Appointment
+from .models import Technician, Appointment, AutomobileVO
 import json
 from common.json import ModelEncoder
 # from django.http import HttpResponse
 
+class AutomobileVOEncoder(ModelEncoder):
+    model = AutomobileVO
+    properties = [
+        "vin",
+        "sold"
+    ]
 
 class AppointmentDetailEncoder(ModelEncoder):
     model = Appointment
@@ -90,7 +96,15 @@ def appointments(request):
         return JsonResponse({"message": "Method Not Allowed"}, status=405)
 
 @require_http_methods(["DELETE"])
-def delete_appointment(request, pk=None):
+def delete_appointment(request, id=None):
     if request.method == "DELETE":
-        deleted, _ = Appointment.objects.filter(id=pk).delete()
+        deleted, _ = Appointment.objects.filter(id=id).delete()
         return JsonResponse({"deleted" : deleted > 0})
+
+def api_auto_list(request):
+    if request.method == "GET":
+        autos = AutomobileVO.objects.all()
+        return JsonResponse(
+            {"autos": autos},
+            encoder=AutomobileVOEncoder,
+        )

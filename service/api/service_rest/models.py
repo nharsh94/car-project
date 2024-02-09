@@ -14,6 +14,9 @@ class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17)
     sold = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.vin
+
 class Appointment(models.Model):
     date_time = models.DateTimeField()
     reason = models.TextField()
@@ -26,4 +29,4 @@ class Appointment(models.Model):
     )
 
     def get_api_url(self):
-        return reverse("delete_appointment", kwargs={"appointment_id": self.pk})
+        return reverse("delete_appointment", kwargs={"appointment_id": self.id})

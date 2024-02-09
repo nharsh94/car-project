@@ -11,19 +11,21 @@ class Technician(models.Model):
         return reverse("delete_technician", kwargs={"technician_id": self.pk})
 
 class AutomobileVO(models.Model):
-    import_href = models.CharField(max_length=300, unique=True, blank=True)
     vin = models.CharField(max_length=17)
     sold = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.vin
 
 class Appointment(models.Model):
     date_time = models.DateTimeField()
     reason = models.TextField()
     status = models.CharField(max_length=50)
-    vin = models.CharField(max_length=17)
+    vin = models.CharField(max_length=17, default='default_vin')
     customer = models.CharField(max_length=100)
     technician = models.ForeignKey(
         Technician,
-        on_delete=models.CASCADE
+        on_delete=models.PROTECT
     )
 
     def get_api_url(self):

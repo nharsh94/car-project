@@ -25,7 +25,6 @@ def poll():
             for automobile in autos:
                 # print("auto being saved", automobile)
                 AutomobileVO.objects.update_or_create(
-                    import_href=automobile["href"],
                     vin=automobile["vin"],
                     defaults={
                         "sold":automobile["sold"]

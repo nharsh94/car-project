@@ -4,7 +4,7 @@ CarCar is a car dealership application -- making it easier to manage inventory, 
 Team:
 
 * Person 1 - Tim McCormack, Automobile Service
-* Person 2 - Which microservice?
+* Noah Harshbarger - Sales Microservice
 
 ## Design
 
@@ -31,6 +31,9 @@ For the sales model, foreign keys were created for AutomobileVO, Salesperson, an
     - `docker-compose up`
 4. Verify that each Docker container is running.
 5. View the app @ http://localhost:3000/
+
+## Design 
+![project-car-car design](DDDDiagram.png)
 
 ### URL Endpoints/Samples
 

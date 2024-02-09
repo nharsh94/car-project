@@ -1,36 +1,45 @@
-import React, { useEffect, useState } from "react";
-import ListModelsItems from "./ListModelsItems";
+import { useEffect, useState } from 'react';
 
-const ListModels = function () {
-    const [models, setModels] = useState([]);
+function ListModels() {
+  const [models, setModels] = useState([]);
 
-    useEffect(() => {
-        const getModels = async () => {
-            const url = 'http://localhost:8100/api/models/';
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                setModels(data.models);
-            } catch (error) {
-                console.error('An error occurred while fetching models:', error);
-            }
-        };
-        getModels();
-    }, []);
+  const getData = async () => {
+    const response = await fetch('http://localhost:8100/api/models/');
 
+    if (response.ok) {
+      const data = await response.json();
+      setModels(data.models);
+    }
+  };
 
-    return (
-        <>
-            <h1>Models</h1>
-            <ul>
-                {Array.isArray(models) && models.map(model => (
-                    <li key={model.id}>
-                        <ListModelsItems model={model} />
-                    </li>
-                ))}
-            </ul>
-        </>
-    );
-};
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return (
+    <div>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Manufacturer</th>
+            <th>Picture</th>
+          </tr>
+        </thead>
+        <tbody>
+          {models.map(models => (
+            <tr key={models.id}>
+              <td>{models.name}</td>
+              <td>{models.manufacturer.name}</td>
+              <td>
+                <img src={models.picture_url}  style={{width: 100, height: 100}} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 export default ListModels;

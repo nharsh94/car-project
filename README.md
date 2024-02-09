@@ -28,7 +28,11 @@ For the sales model, foreign keys were created for AutomobileVO, Salesperson, an
     - `docker-compose build`
     - `docker-compose up`
 
+## Design 
+![project-car-car design](DDDDiagram.png)
+
 ### URL Endpoints/Samples
 
 In the following images, the relevant URL, endpoint, HTTP method, and request/response bodies are visible. The order will be GET, POST, PUT, and DELETE.
+
 

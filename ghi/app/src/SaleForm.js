@@ -12,7 +12,7 @@ function SaleForm() {
     const navigate = useNavigate()
 
     const fetchAutos = async () => {
-        const url = 'http://localhost:8090/api/automobiles/';
+        const url = 'http://localhost:8100/api/automobiles/';
 
         const response = await fetch(url);
 
@@ -83,20 +83,20 @@ function SaleForm() {
             navigate('/sales/');
         }
     }
-    const handleAutomobile = (event) => {
+    const handleAutomobileChange = (event) => {
         const value = event.target.value;
     }
 
-    const handleSalesperson = (event) => {
+    const handleSalespersonChange = (event) => {
         const value = event.target.value;
         setSalesperson(value);
     }
 
-    const handleCustomer = (event) => {
+    const handleCustomerChange = (event) => {
         const value = event.target.value;
         setCustomer(value);
     }
-    const handlePrice = (event) => {
+    const handlePriceChange = (event) => {
         const value = event.target.value;
         setPrice(value);
     }
@@ -106,7 +106,7 @@ function SaleForm() {
                 <h1>Create a new sale</h1>
                 <form onSubmit={handleSubmit} id="create-sale-form">
                     <div className="mb-3">
-                        <select value={automobile} onChange={handleAutomobile} required name="automobile" id="automobile" className="form-select">
+                        <select value={automobile} onChange={handleAutomobileChange} required name="automobile" id="automobile" className="form-select">
                             <option value="">Choose an automobile VIN</option>
                             {autos.map(automobile => {
                                 return (
@@ -118,7 +118,7 @@ function SaleForm() {
                         </select>
                     </div>
                     <div className="mb-3">
-                            <select value={salesperson} onChange={handleSalesperson} required name="salesperson" id="salesperson" className="form-select">
+                            <select value={salesperson} onChange={handleSalespersonChange} required name="salesperson" id="salesperson" className="form-select">
                                 <option value="">Choose a salesperson</option>
                                 {salespeople.map(salesperson => {
                                     return (
@@ -130,7 +130,7 @@ function SaleForm() {
                                 </select> 
                     </div>
                     <div>
-                        <select value={customer} onChange={handleCustomer} required name="customer" id="customer" className="form-select">
+                        <select value={customer} onChange={handleCustomerChange} required name="customer" id="customer" className="form-select">
                             <option value="">Choose a customer</option>
                             {customers.map(customer => {
                                 return (
@@ -142,8 +142,8 @@ function SaleForm() {
                         </select>
                     </div>
                     <div className="form-floating mb-3">
-                        <input value={price} onChange={handlePrice} placeholder="price" required type="text" name="price" id="price" className="form-control" />
-                        <label htmtlFor="price">Price</label>
+                        <input value={price} onChange={handlePriceChange} placeholder="price" required type="text" name="price" id="price" className="form-control" />
+                        <label htmlFor="price">Price</label>
                     </div>
                     <button className="btn btn-primary">Create</button>
                 </form>

@@ -35,7 +35,7 @@ function ManufacturerForm({getManufacturers}) {
                     <form onSubmit={handleSubmit} id="create-manufacturer-form">
                         <div className="form-floating mb-3">
                             <input onChange={handleNameChange} value={name} required type="text" name="name" className="form-control" />
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="name">Manufacturer Name</label>
                         </div>
                         <button className="btn btn-primary">Create</button>
                     </form>

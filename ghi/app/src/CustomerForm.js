@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function CustomerForm({getCustomers}) {
+function CustomerForm() {
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('');
     const [address, setAddress] = useState('');
@@ -28,7 +28,6 @@ function CustomerForm({getCustomers}) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         const data = {};
         data.first_name = first_name;
         data.last_name = last_name;
@@ -48,7 +47,6 @@ function CustomerForm({getCustomers}) {
             setFirstName('');
             setLastName('');
             setAddress('');
-            getCustomers();
         }
     }
 

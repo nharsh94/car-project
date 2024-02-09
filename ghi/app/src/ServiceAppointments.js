@@ -77,33 +77,30 @@ function ServiceAppointments() {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th>Reason</th>
-            <th>Status</th>
-            <th>Customer</th>
             <th>VIN</th>
-            <th>Technician</th>
+            <th>Is VIP?</th>
+            <th>Customer</th>
             <th>Date and Time</th>
+            <th>Technician</th>
+            <th>Resason</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {appointments.map((appointment) => (
-            <tr key={appointment.date_time}>
-              <td>{appointment.reason}</td>
-              <td>{appointment.status}</td>
+            <tr key={appointment.id}>
+              <td>{appointment.vin}</td>
+              <td>{vipVins.includes(appointment.vin) ? (<span>Yes</span>) : (<span>No</span>)}</td>
               <td>{appointment.customer}</td>
-              <td>
-                {appointment.vin}
-                {vipVins.includes(appointment.vin) && <span style={{color: 'red'}}> VIP</span>}
-              </td>
-              <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
               <td>{new Date(appointment.date_time).toLocaleString()}</td>
+              <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
+              <td>{appointment.reason}</td>
               <td>
-                <button onClick={() => handleFinish(appointment.id)}>Finish</button>
-                <button onClick={() => handleCancel(appointment.id)}>Cancel</button>
+                <button onClick={() => handleFinish(appointment.id)} style={{backgroundColor: 'green', color: 'white'}}>Finish</button>
+                <button onClick={() => handleCancel(appointment.id)} style={{backgroundColor: 'red', color: 'white'}}>Cancel</button>
               </td>
             </tr>
-          ))}
+           ))}
         </tbody>
       </table>
     </div>

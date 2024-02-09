@@ -17,6 +17,7 @@ import ManufacturersList from './ManufacturersList';
 import ManufacturerForm from './ManufacturerForm';
 import AutomobileForm from './AutomobileForm';
 import ServiceAppointments from './ServiceAppointments';
+import ServiceHistory from './ServiceHistory'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/technicians" index element={<ListTechnicians/>} />
           <Route path="/technicians/new" index element={<TechnicianForm/>} />
           <Route path="/appointments" index element={<ServiceAppointments/>} />
+          <Route path="/appointments/history" index element={<ServiceHistory/>} />
           <Route path="/appointments/new" index element={<ServiceAppointmentForm/>} />
           <Route path="/salespeople" element={<SalespeopleList />} />
           <Route path="/customers" element={<CustomersList />} />

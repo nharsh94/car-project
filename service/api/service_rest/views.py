@@ -4,6 +4,7 @@ from .models import Technician, Appointment, AutomobileVO
 import json
 from common.json import ModelEncoder
 # from django.http import HttpResponse
+from django.core.exceptions import ValidationError
 
 class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
@@ -75,31 +76,56 @@ def delete_technician(request, pk=None):
 @require_http_methods(["GET", "POST"])
 def appointments(request):
     if request.method == "GET":
-        appointments = Appointment.objects.all()
-        return JsonResponse(appointments, encoder=AppointmentDetailEncoder, safe=False)
-
+        vin = request.GET.get('vin', None)
+        if vin is not None:
+            appointments = Appointment.objects.filter(vin=vin)
+        else:
+            appointments = Appointment.objects.all()
+        data = [AppointmentDetailEncoder().default(appointment) for appointment in appointments]
+        return JsonResponse({"appointments": data}, safe=False, status=200)
     elif request.method == "POST":
+        content = json.loads(request.body)
         try:
-            content = json.loads(request.body)
+            technician = Technician.objects.get(employee_id=content.pop('employee_id'))
+            content['technician'] = technician
             appointment = Appointment.objects.create(**content)
             return JsonResponse(
-                {"appointment_id": appointment.id},
-                status=201
+                AppointmentDetailEncoder().default(appointment),
+                safe=False
             )
-        except Exception as e:
-            response = JsonResponse(
-                {"message": "Could not create the appointment", "error": str(e)}
-            )
-            response.status_code = 400
-            return response
-    else:
-        return JsonResponse({"message": "Method Not Allowed"}, status=405)
+        except Technician.DoesNotExist:
+            return JsonResponse({"error": "Technician with provided employee_id does not exist"}, status=400)
+        except ValidationError as e:
+            return JsonResponse({"error": str(e)}, status=400)
+    elif request.method == "DELETE":
+        content = json.loads(request.body)
+        try:
+            appointment = Appointment.objects.get(id=content['id'])
+            appointment.delete()
+            return JsonResponse({"status": "Appointment deleted"}, status=200)
+        except Appointment.DoesNotExist:
+            return JsonResponse({"error": "Appointment with provided id does not exist"}, status=400)
 
-@require_http_methods(["DELETE"])
+@require_http_methods(["DELETE", "PUT"])
 def delete_appointment(request, id=None):
     if request.method == "DELETE":
-        deleted, _ = Appointment.objects.filter(id=id).delete()
-        return JsonResponse({"deleted" : deleted > 0})
+        try:
+            appointment = Appointment.objects.get(id=id)
+            appointment.delete()
+            return JsonResponse({"status": "Appointment deleted"}, status=200)
+        except Appointment.DoesNotExist:
+            return JsonResponse({"error": "Appointment with provided id does not exist"}, status=400)
+    elif request.method == 'PUT':
+        try:
+            data = json.loads(request.body)
+            appointment = Appointment.objects.get(id=id)
+            appointment.status = data.get('status')
+            appointment.save()
+            return JsonResponse({"status": "Appointment updated"}, status=200)
+        except Appointment.DoesNotExist:
+            return JsonResponse({"error": "Appointment with provided id does not exist"}, status=400)
+        except ValueError:
+            return JsonResponse({"error": "Invalid JSON data"}, status=400)
 
 def api_auto_list(request):
     if request.method == "GET":

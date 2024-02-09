@@ -31,7 +31,7 @@ function App() {
           <Route path="/technicians/new" index element={<TechnicianForm/>} />
           <Route path="/appointments/new" index element={<ServiceAppointmentForm/>} />
           <Route path="/salespeople" element={<SalespeopleList />} />
-          <Route path="/customers" element={<CustomersList />} /> 
+          <Route path="/customers" element={<CustomersList />} />
           <Route path="/customers/new" element={<CustomerForm />} />
           <Route path="/manufacturers" element={<ManufacturersList />} />
           <Route path="/manufacturers/new" element={<ManufacturerForm />} />

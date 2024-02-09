@@ -32,7 +32,7 @@ function ServiceAppointments() {
     });
 
     if (response.ok) {
-      setAppointments(appointments.filter(appointment => appointment.id !== appointmentId));
+      setAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentId));
     }
   };
 
@@ -46,7 +46,7 @@ function ServiceAppointments() {
     });
 
     if (response.ok) {
-      setAppointments(appointments.filter(appointment => appointment.id !== appointmentId));
+      setAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentId));
     }
   };
 
@@ -82,7 +82,7 @@ function ServiceAppointments() {
             <th>Customer</th>
             <th>Date and Time</th>
             <th>Technician</th>
-            <th>Resason</th>
+            <th>Reason</th>
             <th>Actions</th>
           </tr>
         </thead>

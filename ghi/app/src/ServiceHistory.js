@@ -4,12 +4,12 @@ function ServiceHistory() {
   const [vin, setVin] = useState('');
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [vipVins, setVipVins] = useState([]);
 
-
-  const fetchAppointments = async (vin) => {
+  const fetchAppointments = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/service/appointments/?vin=${vin}`);
+      const response = await fetch(`http://localhost:8080/api/service/appointments`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -22,52 +22,17 @@ function ServiceHistory() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetchAppointments(event.target.elements[0].value);
+    filterAppointments();
   };
 
-  const handleDelete = async (appointmentId) => {
-    const response = await fetch(`http://localhost:8080/api/service/appointments/${appointmentId}`, {
-      method: 'DELETE',
-    });
-
-    if (response.ok) {
-      setAppointments(appointments.filter(appointment => appointment.id !== appointmentId));
-    }
+  const filterAppointments = () => {
+    const filtered = appointments.filter(appointment => appointment.vin.toLowerCase() === vin.toLowerCase());
+    setFilteredAppointments(filtered);
   };
 
-  const handleComplete = async (appointmentId) => {
-    const response = await fetch(`http://localhost:8080/api/service/appointments/${appointmentId}/`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ "status": "complete" }),
-    });
-
-    if (response.ok) {
-      const updatedAppointment = await response.json();
-      setAppointments(appointments.map(appointment =>
-        appointment.id === appointmentId ? updatedAppointment : appointment
-      ));
-    }
-  };
-
-  const handleCancel = async (appointmentId) => {
-    const response = await fetch(`http://localhost:8080/api/service/appointments/${appointmentId}/`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ "status": "canceled" }),
-    });
-
-    if (response.ok) {
-      const updatedAppointment = await response.json();
-      setAppointments(appointments.map(appointment =>
-        appointment.id === appointmentId ? updatedAppointment : appointment
-      ));
-    }
-  };
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
 
   useEffect(() => {
     const fetchVipVehicles = async () => {
@@ -94,10 +59,10 @@ function ServiceHistory() {
     <div>
       <form onSubmit={handleSubmit}>
         <label>
-          VIN:
+          Search by VIN:
           <input type="text" value={vin} onChange={e => setVin(e.target.value)} />
         </label>
-        <input type="submit" value="Submit" />
+        <button type="submit">Search</button>
       </form>
       <h1>Service History</h1>
       <table className="table table-striped">
@@ -113,26 +78,31 @@ function ServiceHistory() {
           </tr>
         </thead>
         <tbody>
-          {appointments.map((appointment) => (
-            <tr key={appointment.date_time}>
+          {vin && filteredAppointments.length > 0 ? (
+            filteredAppointments.map((appointment, index) => (
+              <tr key={`${appointment.date_time}_${index}`}>
                 <td>{appointment.vin}</td>
-                <td>{vipVins.includes(appointment.vin) ? (<span>Yes</span>) : (<span>No</span>)}</td>
+                <td>{vipVins.includes(appointment.vin) ? 'Yes' : 'No'}</td>
                 <td>{appointment.customer}</td>
                 <td>{new Date(appointment.date_time).toLocaleString()}</td>
                 <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
                 <td>{appointment.reason}</td>
-                <td>{appointment.status}</td>
-
-
-
-
-              <td>
-                <button onClick={() => handleComplete(appointment.id)}>Complete</button>
-                <button onClick={() => handleCancel(appointment.id)}>Cancel</button>
-                <button onClick={() => handleDelete(appointment.id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
+                <td>{appointment.status === 'finished' ? 'Finished' : appointment.status === 'canceled' ? 'Canceled' : 'Pending'}</td>
+              </tr>
+            ))
+          ) : (
+            appointments.map((appointment, index) => (
+              <tr key={`${appointment.date_time}_${index}`}>
+                <td>{appointment.vin}</td>
+                <td>{vipVins.includes(appointment.vin) ? 'Yes' : 'No'}</td>
+                <td>{appointment.customer}</td>
+                <td>{new Date(appointment.date_time).toLocaleString()}</td>
+                <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
+                <td>{appointment.reason}</td>
+                <td>{appointment.status === 'finished' ? 'Finished' : appointment.status === 'canceled' ? 'Canceled' : 'Pending'}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

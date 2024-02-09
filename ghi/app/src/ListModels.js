@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 function ListModels() {
-  const [Models, setModels] = useState([]);
+  const [models, setModels] = useState([]);
 
   const getData = async () => {
     const response = await fetch('http://localhost:8100/api/models/');
@@ -27,12 +27,12 @@ function ListModels() {
           </tr>
         </thead>
         <tbody>
-          {Models.map(model => (
-            <tr key={model.id}>
-              <td>{model.name}</td>
-              <td>{model.manufacturer.name}</td>
+          {models.map(models => (
+            <tr key={models.id}>
+              <td>{models.name}</td>
+              <td>{models.manufacturer.name}</td>
               <td>
-                <img src={model.picture_url} alt={model.name} style={{width: "50px", height: "50px"}} />
+                <img src={models.picture_url}  style={{width: 100, height: 100}} />
               </td>
             </tr>
           ))}

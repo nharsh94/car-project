@@ -48,24 +48,19 @@ class TechnicianDetailEncoder(ModelEncoder):
 @require_http_methods(["GET", "POST"])
 def technicians(request):
     if request.method == "GET":
-        technician = Technician.objects.all()
+        technicians = Technician.objects.all()
         return JsonResponse(
-            technician, encoder=TechnicianDetailEncoder, safe=False)
-    else:
-        try:
-            content = json.loads(request.body)
-            technician = Technician.objects.create(**content)
-            return JsonResponse(
-                technician,
-                encoder=TechnicianDetailEncoder,
-                safe=False)
-        except:
-           response = JsonResponse(
-               {"message": "Could not create a technician"}
-           )
-           response.status_code = 400
-           return response
-
+        {"technicians": technicians},
+        encoder=TechnicianDetailEncoder
+        )
+    elif request.method == "POST":
+        content = json.loads(request.body)
+        technician = Technician.objects.create(**content)
+        return JsonResponse(
+            technician,
+            encoder=TechnicianDetailEncoder,
+            safe=False
+    )
 
 @require_http_methods(["DELETE"])
 def delete_technician(request, pk=None):
@@ -107,7 +102,7 @@ def appointments(request):
             return JsonResponse({"error": "Appointment with provided id does not exist"}, status=400)
 
 @require_http_methods(["DELETE", "PUT"])
-def delete_appointment(request, id=None):
+def delete_appointment(request, id):
     if request.method == "DELETE":
         try:
             appointment = Appointment.objects.get(id=id)

@@ -1,36 +1,45 @@
-import React, { useEffect, useState } from "react";
-import ListModelsItems from "./ListModelsItems";
+import { useEffect, useState } from 'react';
 
-const ListModels = function () {
-    const [models, setModels] = useState([]);
+function ListModels() {
+  const [Models, setModels] = useState([]);
 
-    useEffect(() => {
-        const getModels = async () => {
-            const url = 'http://localhost:8100/api/models/';
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                setModels(data.models);
-            } catch (error) {
-                console.error('An error occurred while fetching models:', error);
-            }
-        };
-        getModels();
-    }, []);
+  const getData = async () => {
+    const response = await fetch('http://localhost:8100/api/models/');
 
+    if (response.ok) {
+      const data = await response.json();
+      setModels(data.models);
+    }
+  };
 
-    return (
-        <>
-            <h1>Models</h1>
-            <ul>
-                {Array.isArray(models) && models.map(model => (
-                    <li key={model.id}>
-                        <ListModelsItems model={model} />
-                    </li>
-                ))}
-            </ul>
-        </>
-    );
-};
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return (
+    <div>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Manufacturer</th>
+            <th>Picture</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Models.map(model => (
+            <tr key={model.id}>
+              <td>{model.name}</td>
+              <td>{model.manufacturer.name}</td>
+              <td>
+                <img src={model.picture_url} alt={model.name} style={{width: "50px", height: "50px"}} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 export default ListModels;

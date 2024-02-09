@@ -5,7 +5,7 @@ import CreateModelForm from './CreateModelForm';
 import ListModels from './ListModels';
 import ListAutomobiles from './ListAutomobiles';
 import TechnicianForm from './AddTechnicianForm';
-import ListTechnicians from './ListTechnicians'
+import ListTechnicians from './ListTechnicians';
 import ServiceAppointmentForm from './ServiceAppointmentForm';
 import SalespeopleList from './SalespeopleList';
 import CustomersList from './CustomersList';
@@ -16,6 +16,7 @@ import SalesList from './SalesList';
 import ManufacturersList from './ManufacturersList';
 import ManufacturerForm from './ManufacturerForm';
 import AutomobileForm from './AutomobileForm';
+import ServiceAppointments from './ServiceAppointments';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/automobiles" index element={<ListAutomobiles/>} />
           <Route path="/technicians" index element={<ListTechnicians/>} />
           <Route path="/technicians/new" index element={<TechnicianForm/>} />
+          <Route path="/appointments" index element={<ServiceAppointments/>} />
           <Route path="/appointments/new" index element={<ServiceAppointmentForm/>} />
           <Route path="/salespeople" element={<SalespeopleList />} />
           <Route path="/customers" element={<CustomersList />} />

@@ -1,7 +1,25 @@
 import React, { useEffect, useState } from "react";
 
+function ListTechnicians() {
+    const [technicians, setTechnicians] = useState([]);
 
-const ListTechnicians = ({ technicians }) => {
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/api/service/technicians/');
+                if (response.ok) {
+                    const data = await response.json();
+                    setTechnicians(data.technicians);
+                } else {
+                    console.error("Failed to fetch technicians data.");
+                }
+            } catch (error) {
+                console.error("Error fetching technicians data:", error);
+            }
+        };
+        getData();
+    }, []);
+
     return (
         <table className="table table-striped">
             <thead>

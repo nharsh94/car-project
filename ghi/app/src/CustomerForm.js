@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function CustomerForm({getCustomers}) {
+function CustomerForm() {
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('');
     const [address, setAddress] = useState('');
@@ -28,7 +28,6 @@ function CustomerForm({getCustomers}) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         const data = {};
         data.first_name = first_name;
         data.last_name = last_name;
@@ -48,7 +47,7 @@ function CustomerForm({getCustomers}) {
             setFirstName('');
             setLastName('');
             setAddress('');
-            getCustomers();
+            setPhone('');
         }
     }
 
@@ -67,11 +66,11 @@ function CustomerForm({getCustomers}) {
                             <label htmlFor="last_name">Last Name</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input onChange={handleAddressChange} value={address} placeholder="address" required type="text" name="address" id="address" className="form-control" />
+                            <input onChange={handleAddressChange} value={address} placeholder="Address" required type="text" name="address" id="address" className="form-control" />
                             <label htmlFor="address">Address</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input onChange={handlePhoneNumberChange} value={phone_number} placeholder="Phone Number" required type="text" name="phone_number" id="phone_number" className="form-control" />
+                            <input onChange={handlePhoneNumberChange} value={phone_number} placeholder="Phone Number" required type="text" name="phone_number" id="phone_number" className="form-control" autoComplete="off" />
                             <label htmlFor="phone_number">Phone Number</label>
                         </div>
                         <button className="btn btn-primary">Create</button>

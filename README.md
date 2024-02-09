@@ -1,9 +1,9 @@
 # CarCar
-CarCar is a car dealership application -- making it easier to manage inventory, services, and sales. 
+CarCar is a car dealership application -- making it easier to manage inventory, services, and sales.
 
 Team:
 
-* Person 1 - Tim McCormack, Automobile Service
+* Tim McCormack - Service Microservice
 * Noah Harshbarger - Sales Microservice
 
 ## Design
@@ -12,14 +12,13 @@ Team:
 
 ## Service microservice
 
-Explain your models and integration with the inventory
-microservice, here.
+The service microservice has 2 models and one Value Object (VO): Technician,Appointment and AutomobileVO. In the service model I created a foreign key for Technician because it required data from models and VO's.
 
 ## Sales microservice
 
-The sales microservice has three models and one Value Object (VO): Salesperson, Customer, Sale, and AutomobileVO. 
+The sales microservice has three models and one Value Object (VO): Salesperson, Customer, Sale, and AutomobileVO.
 
-For the sales model, foreign keys were created for AutomobileVO, Salesperson, and Customer because it required the data from those models/VOs. 
+For the sales model, foreign keys were created for AutomobileVO, Salesperson, and Customer because it required the data from those models/VOs.
 
 ## Instructions to Run
 
@@ -32,14 +31,29 @@ For the sales model, foreign keys were created for AutomobileVO, Salesperson, an
 4. Verify that each Docker container is running.
 5. View the app @ http://localhost:3000/
 
-## Design 
+## Design
 ![project-car-car design](DDDDiagram.png)
 
 ### URL Endpoints/Samples
 
 In the following images, the relevant URL, endpoint, HTTP method, and request/response bodies are visible. The order will be GET, POST, PUT, and DELETE.
 
+## Service
 
+## List Technician
+![technician](Listtechnicians.jpg)
+## Create Technician
+![technician](Createtechnician.jpg)
+## Delete Technician
+![technician](Deletetechnician.jpg)
+## List appointment
+![appointment](Listappointment.jpg)
+## Create appointment
+![appointment](Createappointment.jpg)
+## Delete appointment
+![appointment](Deleteappointment.jpg)
+
+The Service model uses a Foreign Key in Technician
 
 ## Sales
 
@@ -64,4 +78,3 @@ In the following images, the relevant URL, endpoint, HTTP method, and request/re
 ![deleteCustomer](deleteCustomer.png)
 
 The Sales Model is used with foreign keys: `automobile`, `salesperson`, and `customer` are used.
-

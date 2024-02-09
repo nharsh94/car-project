@@ -12,7 +12,7 @@ function SaleForm() {
     const navigate = useNavigate()
 
     const fetchAutos = async () => {
-        const url = 'http://localhost:8090/api/automobiles';
+        const url = 'http://localhost:8090/api/automobiles/';
 
         const response = await fetch(url);
 

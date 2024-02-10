@@ -34,6 +34,9 @@ function Nav() {
             <li className="nav-item">
               <NavLink className="nav-link" to="appointments/">Appointments</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="appointments/history/">Service History</NavLink>
+            </li>
             <li className='nav-item'>
               <NavLink className="nav-link" to="appointments/new">Create a Service Appointment</NavLink>
             </li>

@@ -3,7 +3,6 @@ from django.views.decorators.http import require_http_methods
 from .models import Technician, Appointment, AutomobileVO
 import json
 from common.json import ModelEncoder
-# from django.http import HttpResponse
 from django.core.exceptions import ValidationError
 
 class AutomobileVOEncoder(ModelEncoder):

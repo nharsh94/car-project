@@ -14,6 +14,10 @@ Team:
 
 The service microservice has 2 models and one Value Object (VO): Technician,Appointment and AutomobileVO. In the service model I created a foreign key for Technician because it required data from models and VO's.
 
+## Inventory microservice
+
+The inventory microservice has three models: manufacturer, vehicle model, and automobile. This microservice stands as a reference for the types of vehicles: names, color, pictures, and the VIN for a quick reference to other microservices.
+
 ## Sales microservice
 
 The sales microservice has three models and one Value Object (VO): Salesperson, Customer, Sale, and AutomobileVO.
@@ -54,6 +58,34 @@ In the following images, the relevant URL, endpoint, HTTP method, and request/re
 ![appointment](Deleteappointment.jpg)
 
 The Service model uses a Foreign Key in Technician
+
+## Inventory
+
+| Action | Method | URL |
+| ----------- | ----------- | ----------- |
+| List Manufacturers | GET | http://localhost:8100/api/manufacturers/
+| Create a Manufacturer | POST | http://localhost:8100/api/manufacturers/
+| Get a Specific Manufacturer | GET | http://localhost:8100/api/manufacturers/:id/
+| Update a Specific Manufacturer | PUT | http://localhost:8100/api/manufacturers/:id/
+| Delete a Specific Manufacturer | DELETE | http://localhost:8100/api/manufacturers/:id/
+
+| List Automobiles | GET | http://localhost:8100/api/automobiles/
+| Create an Automobile | POST | http://localhost:8100/api/automobiles/
+| Get a Specific Automobile | GET | http://localhost:8100/api/automobiles/:id/
+| Update a Specific Automobile | PUT | http://localhost:8100/api/manufacturers/:id/
+| Delete a Specific Automobile | DELETE | http://localhost:8100/api/manufacturers/:id/
+
+| List Automobiles | GET | http://localhost:8100/api/automobiles/
+| Create an Automobile | POST | http://localhost:8100/api/automobiles/
+| Get a Specific Automobile | GET | http://localhost:8100/api/automobiles/:id/
+| Update a Specific Automobile | PUT | http://localhost:8100/api/automobiles/:id/
+| Delete a Specific Automobile | DELETE | http://localhost:8100/api/automobiles/:id/
+
+| List Models | GET | http://localhost:8100/api/models/
+| Create a Model | POST | http://localhost:8100/api/models/
+| Get a Specific Model | GET | http://localhost:8100/api/models/:id/
+| Update a Specific Model | PUT | http://localhost:8100/api/models/:id/
+| Delete a Specific models | DELETE | http://localhost:8100/api/models/:id/
 
 ## Sales
 

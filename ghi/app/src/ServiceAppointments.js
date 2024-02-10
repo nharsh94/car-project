@@ -96,8 +96,8 @@ function ServiceAppointments() {
               <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
               <td>{appointment.reason}</td>
               <td>
-                <button onClick={() => handleFinish(appointment.id)} style={{backgroundColor: 'green', color: 'white'}}>Finish</button>
-                <button onClick={() => handleCancel(appointment.id)} style={{backgroundColor: 'red', color: 'white'}}>Cancel</button>
+                <button className="btn btn" onClick={() => handleFinish(appointment.id)} style={{backgroundColor: 'green', color:'white'}}>Finish</button>
+                <button className="btn btn" onClick={() => handleCancel(appointment.id)} style={{backgroundColor: 'red', color: 'white'}}>Cancel</button>
               </td>
             </tr>
            ))}

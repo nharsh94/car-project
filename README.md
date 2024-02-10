@@ -78,3 +78,12 @@ The Service model uses a Foreign Key in Technician
 ![deleteCustomer](deleteCustomer.png)
 
 The Sales Model is used with foreign keys: `automobile`, `salesperson`, and `customer` are used.
+
+### List Sales
+![listSales](SalesList.png)
+
+### Create a Sale
+![createSale](createSale.png)
+
+### Delete a Sale
+![deleteSale](deleteSales.png)

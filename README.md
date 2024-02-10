@@ -35,8 +35,6 @@ For the sales model, foreign keys were created for AutomobileVO, Salesperson, an
 4. Verify that each Docker container is running.
 5. View the app @ http://localhost:3000/
 
-## Design
-![project-car-car design](DDDDiagram.png)
 
 ### URL Endpoints/Samples
 
